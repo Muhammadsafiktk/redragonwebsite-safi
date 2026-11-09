@@ -1,0 +1,765 @@
+/* =========================================================
+   REDRAGON - COLOR-CHANGING NIGHT SKY THEME
+   Pages: index, keyboards, about, contact, games
+   ========================================================= */
+
+:root {
+  --red: #ff3355;
+  --red-dark: #c4112f;
+  --cyan: #38e8ff;
+  --violet: #9d6bff;
+  --gold: #ffd36b;
+  --green: #76ff03;
+  --text: #e8ecff;
+  --muted: #a7b0d8;
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-brd: rgba(255, 255, 255, 0.14);
+  --card: rgba(10, 16, 48, 0.88);
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+
+/* ---------------------------------------------------------
+   BACKGROUND LAYERS
+   html background : moon + sky colors that slowly change
+   html::before    : nebula clouds that shift color
+   body::before    : stars layer 1 (twinkle)
+   body::after     : stars layer 2 (twinkle)
+   html::after     : shooting star
+   --------------------------------------------------------- */
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  background-color: #02030a;
+  background-image:
+    radial-gradient(circle at 91% 11%, #fffbe8 0 16px, rgba(255, 247, 200, 0.38) 17px, rgba(255, 247, 200, 0.12) 46px, transparent 120px),
+    linear-gradient(180deg, #01020a 0%, #08123a 14%, #1a0f45 28%, #3b1057 42%, #0b3b52 57%, #08123a 71%, #2a0d4a 86%, #01020a 100%);
+  background-size: 100% 100%, 100% 500%;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+  animation: skyColors 40s ease-in-out infinite alternate;
+}
+
+@keyframes skyColors {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 0 0, 0 100%; }
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: -8%;
+  z-index: -3;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 40% at 15% 18%, rgba(157, 107, 255, 0.50), transparent 65%),
+    radial-gradient(ellipse 50% 38% at 85% 35%, rgba(56, 232, 255, 0.34), transparent 65%),
+    radial-gradient(ellipse 65% 42% at 50% 105%, rgba(255, 51, 85, 0.42), transparent 68%),
+    radial-gradient(ellipse 38% 30% at 68% 72%, rgba(0, 255, 170, 0.22), transparent 65%);
+  animation: nebula 22s ease-in-out infinite alternate;
+}
+
+@keyframes nebula {
+  0%   { filter: hue-rotate(0deg);   transform: scale(1)    translate(0, 0); }
+  50%  { filter: hue-rotate(70deg);  transform: scale(1.12) translate(2%, -2%); }
+  100% { filter: hue-rotate(-50deg); transform: scale(1.2)  translate(-2%, 2%); }
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+body::before {
+  background-image:
+    radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 90px 120px, #cfe3ff, transparent),
+    radial-gradient(1.5px 1.5px at 160px 60px, #fff, transparent),
+    radial-gradient(1px 1px at 230px 180px, #ffe9c9, transparent),
+    radial-gradient(1.5px 1.5px at 60px 210px, #fff, transparent),
+    radial-gradient(1px 1px at 280px 40px, #cfe3ff, transparent),
+    radial-gradient(1px 1px at 320px 250px, #fff, transparent);
+  background-size: 340px 280px;
+  animation: twinkle 4s ease-in-out infinite, drift 120s linear infinite;
+}
+
+body::after {
+  z-index: -1;
+  background-image:
+    radial-gradient(2px 2px at 50px 80px, #fff, transparent),
+    radial-gradient(2px 2px at 200px 20px, #bfe9ff, transparent),
+    radial-gradient(2.5px 2.5px at 330px 150px, #fff, transparent),
+    radial-gradient(2px 2px at 120px 300px, #ffd9e0, transparent),
+    radial-gradient(2px 2px at 420px 330px, #fff, transparent);
+  background-size: 480px 380px;
+  animation: twinkle 6s ease-in-out infinite 1.5s, drift 200s linear infinite reverse;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.2; }
+}
+
+@keyframes drift {
+  to { background-position: 480px 380px; }
+}
+
+html::after {
+  content: "";
+  position: fixed;
+  top: 8%;
+  left: 100%;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, #fff, transparent);
+  transform: rotate(-35deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  animation: shoot 8s linear infinite 2s;
+}
+
+@keyframes shoot {
+  0%   { transform: translate(0, 0) rotate(-35deg); opacity: 0; }
+  3%   { opacity: 1; }
+  12%  { transform: translate(-95vw, 62vh) rotate(-35deg); opacity: 0; }
+  100% { transform: translate(-95vw, 62vh) rotate(-35deg); opacity: 0; }
+}
+
+/* ---------------------------------------------------------
+   BASE
+   --------------------------------------------------------- */
+body {
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 28px 18px 60px;
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  line-height: 1.65;
+  text-align: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { line-height: 1.25; margin: 0.6em 0 0.4em; }
+
+h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, var(--red), var(--gold), var(--cyan), var(--violet), var(--red));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shine 8s linear infinite;
+}
+
+@keyframes shine { to { background-position: 300% 0; } }
+
+h2 {
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(56, 232, 255, 0.6);
+}
+
+h3 {
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  color: var(--gold);
+}
+
+p { color: var(--muted); margin: 0.6em auto; max-width: 720px; }
+
+header p {
+  letter-spacing: 6px;
+  font-size: 0.85rem;
+  color: var(--red);
+  text-shadow: 0 0 10px rgba(255, 51, 85, 0.7);
+}
+
+ul { display: inline-block; text-align: left; color: var(--muted); padding-left: 1.2em; }
+li { margin: 6px 0; transition: transform 0.25s, color 0.25s; }
+li:hover { transform: translateX(8px); color: var(--cyan); }
+
+hr {
+  border: 0;
+  height: 2px;
+  margin: 28px 0;
+  background: linear-gradient(90deg, transparent, var(--violet), var(--cyan), var(--red), transparent);
+  opacity: 0.85;
+}
+
+/* page entrance */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------------
+   NAVIGATION LINKS
+   --------------------------------------------------------- */
+nav, body > a { font-size: 1.05rem; }
+
+nav a,
+body > a {
+  display: inline-block;
+  position: relative;
+  margin: 4px 6px;
+  padding: 6px 14px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+nav a::after,
+body > a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--cyan));
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+nav a:hover,
+body > a:hover {
+  color: #fff;
+  background: var(--glass);
+  border-color: var(--glass-brd);
+  box-shadow: 0 0 20px rgba(56, 232, 255, 0.5);
+  transform: translateY(-3px);
+}
+
+nav a:hover::after,
+body > a:hover::after { width: 70%; }
+
+/* button-like links inside main */
+main a {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 11px 26px;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  box-shadow: 0 6px 20px rgba(255, 51, 85, 0.45);
+  transition: all 0.3s ease;
+}
+
+main a:hover {
+  transform: translateY(-4px) scale(1.06);
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  box-shadow: 0 10px 30px rgba(56, 232, 255, 0.6);
+}
+
+main a:active { transform: scale(0.97); }
+
+/* ---------------------------------------------------------
+   CARDS WITH COLOR-CHANGING BORDER
+   --------------------------------------------------------- */
+@keyframes borderFlow {
+  from { background-position: 0 0, 0% 50%; }
+  to   { background-position: 0 0, 100% 50%; }
+}
+
+section,
+article,
+form,
+.game-card {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(120deg, var(--red), var(--gold), var(--cyan), var(--violet), var(--red)) border-box;
+  background-size: 100% 100%, 300% 300%;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+section {
+  margin: 22px 0;
+  padding: 28px 20px;
+  border-radius: var(--radius);
+  animation: fadeUp 0.8s ease both, borderFlow 7s linear infinite alternate;
+}
+
+article {
+  margin: 22px auto;
+  padding: 20px;
+  max-width: 460px;
+  border-radius: var(--radius);
+  animation: fadeUp 0.8s ease both, borderFlow 7s linear infinite alternate;
+}
+
+form {
+  max-width: 480px;
+  margin: 20px auto;
+  padding: 26px 22px;
+  text-align: left;
+  border-radius: var(--radius);
+  animation: fadeUp 0.8s ease both, borderFlow 7s linear infinite alternate;
+}
+
+section:hover {
+  box-shadow: 0 0 36px rgba(157, 107, 255, 0.45);
+}
+
+article:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 14px 40px rgba(255, 51, 85, 0.45);
+  animation: fadeUp 0.8s ease both, borderFlow 2.5s linear infinite alternate;
+}
+
+form:hover {
+  box-shadow: 0 0 34px rgba(56, 232, 255, 0.4);
+}
+
+/* ---------------------------------------------------------
+   IMAGES
+   --------------------------------------------------------- */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--glass-brd);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
+}
+
+img:hover {
+  transform: scale(1.06) rotate(-1deg);
+  box-shadow: 0 0 38px rgba(56, 232, 255, 0.65);
+  filter: brightness(1.12) saturate(1.25);
+}
+
+/* ---------------------------------------------------------
+   BUTTONS AND FORM FIELDS
+   --------------------------------------------------------- */
+button {
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 22px;
+  border: 1px solid var(--glass-brd);
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  box-shadow: 0 5px 18px rgba(255, 51, 85, 0.4);
+  transition: all 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  box-shadow: 0 8px 26px rgba(56, 232, 255, 0.6);
+}
+
+button:active:not(:disabled) { transform: scale(0.95); }
+button:disabled { cursor: not-allowed; }
+
+button:focus-visible,
+select:focus-visible,
+a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+form label { font-weight: 600; color: var(--gold); }
+form button[type="submit"] { width: 100%; margin-top: 4px; }
+
+input, textarea, select {
+  font: inherit;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--glass-brd);
+  border-radius: 10px;
+  padding: 10px 12px;
+  transition: all 0.3s ease;
+}
+
+input, textarea { width: 100%; margin-top: 6px; }
+textarea { resize: vertical; }
+input::placeholder, textarea::placeholder { color: #7f89b8; }
+
+input:hover, textarea:hover, select:hover { border-color: var(--violet); }
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 0 0 16px rgba(56, 232, 255, 0.6);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+select option { background: #0a1030; color: var(--text); }
+
+footer { margin-top: 30px; padding-top: 10px; }
+footer p { font-size: 0.9rem; margin: 4px auto; }
+
+/* =========================================================
+   GAMES PAGE: 2 games per row, each inside a border card
+   ========================================================= */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+  align-items: start;
+  margin-top: 10px;
+}
+
+/* odd last game sits centered on its own row */
+.games-grid > .game-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  width: calc(50% - 13px);
+  justify-self: center;
+}
+
+.game-card {
+  padding: 8px 18px 24px;
+  border-radius: 22px;
+  animation: fadeUp 0.8s ease both, borderFlow 6s linear infinite alternate;
+}
+
+.game-card:nth-child(2) { animation-delay: 0.15s, 0s; }
+.game-card:nth-child(3) { animation-delay: 0.3s, 0s; }
+
+.game-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 40px rgba(157, 107, 255, 0.6), 0 18px 40px rgba(0, 0, 0, 0.5);
+  animation: fadeUp 0.8s ease both, borderFlow 2s linear infinite alternate;
+}
+
+.game-card h2 { margin-top: 0.7em; }
+
+/* the inner .box has no frame of its own */
+.box {
+  max-width: 440px;
+  margin: 10px auto 0;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.row label { color: var(--gold); font-weight: 600; }
+
+.row button {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.row button.active {
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  box-shadow: 0 0 20px rgba(255, 51, 85, 0.7);
+}
+
+.hidden { display: none; }
+
+.score {
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.score div {
+  flex: 1;
+  padding: 8px 6px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--glass-brd);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.score div:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 16px rgba(56, 232, 255, 0.5);
+  transform: translateY(-3px);
+}
+
+.score span { display: block; font-size: 0.78rem; color: var(--muted); }
+.score b { font-size: 1.6rem; color: var(--gold); text-shadow: 0 0 12px rgba(255, 211, 107, 0.6); }
+
+/* Tic Tac Toe 3x3 */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-width: 330px;
+  margin: 0 auto;
+}
+
+.cell {
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  font-size: clamp(2.2rem, 10vw, 3.6rem);
+  font-weight: 800;
+  color: var(--cyan);
+  text-shadow: 0 0 16px rgba(56, 232, 255, 0.85);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--glass-brd);
+  box-shadow: none;
+}
+
+.cell:hover:not(:disabled) {
+  background: rgba(157, 107, 255, 0.28);
+  border-color: var(--violet);
+  box-shadow: 0 0 22px rgba(157, 107, 255, 0.65);
+  transform: scale(1.06);
+}
+
+.cell:disabled { opacity: 1; color: var(--cyan); }
+
+.cell.win {
+  color: #fff;
+  background: linear-gradient(135deg, var(--red), var(--gold));
+  border-color: var(--gold);
+  box-shadow: 0 0 28px rgba(255, 211, 107, 0.9);
+  animation: pop 0.6s ease infinite alternate;
+}
+
+@keyframes pop { to { transform: scale(1.08); } }
+
+#status, #memMsg {
+  min-height: 1.8em;
+  margin: 14px 0 4px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.btn.grey { background: linear-gradient(135deg, #4a5278, #2d3354); box-shadow: none; }
+.btn.grey:hover:not(:disabled) { background: linear-gradient(135deg, var(--violet), var(--cyan)); }
+.btn:disabled { opacity: 0.5; }
+
+/* Snake */
+canvas {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto 16px;
+  border-radius: 14px;
+  border: 2px solid var(--violet);
+  box-shadow: 0 0 30px rgba(157, 107, 255, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.6);
+  touch-action: none;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+canvas:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 40px rgba(56, 232, 255, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.pad {
+  display: grid;
+  grid-template-columns: repeat(3, 62px);
+  grid-template-areas:
+    ".    up    ."
+    "left down  right";
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.pad button {
+  width: 62px;
+  height: 62px;
+  padding: 0;
+  font-size: 1.3rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.pad .up    { grid-area: up; }
+.pad .left  { grid-area: left; }
+.pad .down  { grid-area: down; }
+.pad .right { grid-area: right; }
+
+/* Memory Match */
+.memboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  max-width: 340px;
+  margin: 0 auto;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.memboard.paused {
+  opacity: 0.25;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.mcard {
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2a2f6b, #3d2a7a);
+  border: 1px solid var(--glass-brd);
+  box-shadow: none;
+}
+
+.mcard:hover:not(.flipped):not(.matched) {
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  box-shadow: 0 0 22px rgba(56, 232, 255, 0.65);
+  transform: translateY(-4px) scale(1.06);
+}
+
+.mcard.flipped {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--cyan);
+  animation: flipIn 0.35s ease;
+}
+
+.mcard.matched {
+  background: linear-gradient(135deg, rgba(118, 255, 3, 0.35), rgba(56, 232, 255, 0.35));
+  border-color: var(--green);
+  box-shadow: 0 0 20px rgba(118, 255, 3, 0.65);
+  cursor: default;
+}
+
+@keyframes flipIn {
+  from { transform: rotateY(90deg) scale(0.9); }
+  to   { transform: rotateY(0) scale(1); }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 860px) {
+  .games-grid { grid-template-columns: minmax(0, 1fr); }
+  .games-grid > .game-card:last-child:nth-child(odd) {
+    grid-column: auto;
+    width: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  body { padding: 18px 12px 40px; }
+  section { padding: 22px 14px; }
+  header p { letter-spacing: 3px; }
+  nav a, body > a { padding: 6px 10px; font-size: 0.95rem; }
+  article:hover { transform: translateY(-4px); }
+}
+
+@media (max-width: 420px) {
+  .game-card { padding: 4px 12px 20px; }
+  .pad { grid-template-columns: repeat(3, 56px); }
+  .pad button { width: 56px; height: 56px; }
+  .score b { font-size: 1.3rem; }
+  .actions button { padding: 9px 16px; }
+}
+
+/* touch screens: no sticky hover jump */
+@media (hover: none) {
+  .game-card:hover, article:hover, img:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after, html, html::before, html::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   RAINBOW BORDER FOR ALL GAMES
+   (game cards, Snake canvas, Tic Tac Toe board, Memory board)
+   ========================================================= */
+:root {
+  --rainbow: linear-gradient(90deg,
+    #ff0033, #ff8a00, #ffe600, #2bff00, #00e5ff, #2f6bff, #9d00ff, #ff00c8, #ff0033);
+}
+
+/* flowing rainbow: 200% wide, moves one full period, loops with no jump */
+@keyframes rainbowFlow {
+  from { background-position: 0 0, 0% 50%; }
+  to   { background-position: 0 0, 200% 50%; }
+}
+
+/* rainbow glow around the card, color cycles through the rainbow */
+@keyframes rainbowGlow {
+  0%   { box-shadow: 0 0 24px rgba(255, 0, 51, 0.65); }
+  14%  { box-shadow: 0 0 24px rgba(255, 138, 0, 0.65); }
+  28%  { box-shadow: 0 0 24px rgba(255, 230, 0, 0.65); }
+  42%  { box-shadow: 0 0 24px rgba(43, 255, 0, 0.65); }
+  57%  { box-shadow: 0 0 24px rgba(0, 229, 255, 0.65); }
+  71%  { box-shadow: 0 0 24px rgba(47, 107, 255, 0.65); }
+  85%  { box-shadow: 0 0 24px rgba(157, 0, 255, 0.65); }
+  100% { box-shadow: 0 0 24px rgba(255, 0, 51, 0.65); }
+}
+
+.game-card {
+  border: 4px solid transparent;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    var(--rainbow) border-box;
+  background-size: 100% 100%, 200% 100%;
+  animation: fadeUp 0.8s ease both, rainbowFlow 5s linear infinite, rainbowGlow 7s linear infinite;
+}
+
+.game-card:nth-child(2) { animation-delay: 0.15s, 0s, 0s; }
+.game-card:nth-child(3) { animation-delay: 0.3s, 0s, 0s; }
+
+.game-card:hover {
+  transform: translateY(-8px);
+  animation: fadeUp 0.8s ease both, rainbowFlow 1.8s linear infinite, rainbowGlow 2.5s linear infinite;
+}
+
+/* Snake screen */
+canvas {
+  border: 3px solid transparent;
+  background:
+    linear-gradient(#111, #111) padding-box,
+    var(--rainbow) border-box;
+  background-size: 100% 100%, 200% 100%;
+  animation: rainbowFlow 5s linear infinite;
+}
+
+canvas:hover { border-color: transparent; }
+
+/* Tic Tac Toe board and Memory board frames */
+.board,
+.memboard {
+  padding: 8px;
+  border: 3px solid transparent;
+  border-radius: 20px;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)) padding-box,
+    var(--rainbow) border-box;
+  background-size: 100% 100%, 200% 100%;
+  animation: rainbowFlow 5s linear infinite;
+}
+
+.board { max-width: 346px; }
+.memboard { max-width: 356px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .game-card, canvas, .board, .memboard { animation: none !important; }
+}

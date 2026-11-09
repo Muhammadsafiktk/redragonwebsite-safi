@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Games - Tic Tac Toe &amp; Snake</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<a href="index.html">Home</a> |
+<a href="keyboards.html">Keyboards</a> |
+<a href="about.html">About</a> |
+<a href="contact.html">Contact</a>
+<a href="games.html">Games</a>
+
+<hr>
+
+<h1>Tic Tac Toe</h1>
+
+<div class="box">
+  <div class="row">
+    <button id="mode2" class="active">2 Players</button>
+    <button id="modeCpu">Vs Computer</button>
+    <select id="level" class="hidden" aria-label="Difficulty">
+      <option value="easy">Easy</option>
+      <option value="hard">Hard</option>
+    </select>
+  </div>
+
+  <div class="score">
+    <div><span id="nameX">Player 1 (X)</span><b id="winsX">0</b></div>
+    <div><span>Draws</span><b id="draws">0</b></div>
+    <div><span id="nameO">Player 2 (O)</span><b id="winsO">0</b></div>
+  </div>
+
+  <!-- 3x3 board: JS creates exactly 9 cells here -->
+  <div class="board" id="board"></div>
+  <div id="status"></div>
+
+  <div class="actions">
+    <button class="btn" id="newRound">New round</button>
+    <button class="btn grey" id="resetScore">Reset points</button>
+  </div>
+</div>
+
+<h1>Snake</h1>
+
+<div class="box">
+  <div class="row">
+    <label for="speed">Speed</label>
+    <select id="speed">
+      <option value="easy">Easy</option>
+      <option value="normal" selected>Normal</option>
+      <option value="hard">Hard</option>
+    </select>
+  </div>
+
+  <div class="score">
+    <div><span>Points</span><b id="score">0</b></div>
+    <div><span>Best</span><b id="best">0</b></div>
+  </div>
+
+  <canvas id="game" width="400" height="400"></canvas>
+
+  <div class="pad">
+    <button class="up" data-dir="up" aria-label="Up">▲</button>
+    <button class="left" data-dir="left" aria-label="Left">◀</button>
+    <button class="down" data-dir="down" aria-label="Down">▼</button>
+    <button class="right" data-dir="right" aria-label="Right">▶</button>
+  </div>
+
+  <div class="actions">
+    <button class="btn" id="startBtn">Start</button>
+    <button class="btn grey" id="restartBtn">Restart</button>
+    <button class="btn grey" id="snakeReset">Reset points</button>
+  </div>
+</div>
+
+<h1>Memory Match</h1>
+
+<div class="box">
+  <div class="score">
+    <div><span>Moves</span><b id="memMoves">0</b></div>
+    <div><span>Time</span><b id="memTime">0:00</b></div>
+    <div><span>Best (fewest)</span><b id="memBest">-</b></div>
+  </div>
+
+  <div class="memboard" id="memBoard"></div>
+  <div id="memMsg"></div>
+
+  <div class="actions">
+    <button class="btn" id="memRestart">Restart</button>
+    <button class="btn" id="memNew">New Game</button>
+    <button class="btn grey" id="memHint">Hint (3)</button>
+    <button class="btn grey" id="memPause">Pause</button>
+    <button class="btn grey" id="memReset">Reset points</button>
+  </div>
+</div>
+
+</body>
+</html>
